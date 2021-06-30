@@ -1,4 +1,3 @@
-import express from 'express';
+import { app } from './app.js';
 
-const app = express();
 app.listen(3000, () => console.log('App is running'));
