@@ -5,15 +5,21 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
-    "start": "NODE_PATH=./src nodemon src",
-    "test": "NODE_PATH=./src jest --watchAll",
-    "lint": "eslint . --fix"
+    "dev": "NODE_PATH=./src nodemon --exec babel-node --config-file ./babel.config.json src/index.js ",
+    "test": "jest --watchAll",
+    "lint": "eslint . --fix",
+    "build": "yarn clean && babel src --config-file ./babel.config.json -d dist",
+    "clean": "rimraf dist"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "express": "^4.17.1"
+    "agent-base": "^6.0.2",
+    "express": "^4.17.1",
+    "rimraf": "^3.0.2",
+    "sequelize": "^6.6.4",
+    "sqlite3": "^5.0.2"
   },
   "devDependencies": {
     "@babel/cli": "^7.14.5",

@@ -41,6 +41,21 @@ http://192.168.0.1:8080
 
 ## 001. First Test Sign Up Request
 
+<br/>
+
+## 002. Saving User to Database
+
+    $ sudo apt install sqlite3
+
+<br/>
+
+    $ yarn add sequelize sqlite3
+
+<br/>
+
+    // Solves issue in VSCode
+    $ npm install agent-base
+
 <br/><br/>
 
 ---
