@@ -5,10 +5,11 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
-    "dev": "NODE_PATH=./src nodemon --exec babel-node --config-file ./babel.config.json src/index.js ",
+    "dev": "nodemon --exec babel-node --config-file ./babel.config.json src/index.js",
     "test": "jest --watchAll",
     "lint": "eslint . --fix",
     "build": "yarn clean && babel src --config-file ./babel.config.json -d dist",
+    "prod": "yarn build && babel-node dist/index.js",
     "clean": "rimraf dist"
   },
   "keywords": [],
@@ -28,6 +29,7 @@
     "@babel/plugin-transform-modules-commonjs": "^7.14.5",
     "@babel/preset-env": "^7.14.7",
     "babel-plugin-module-resolver": "^4.1.0",
+    "babel-plugin-transform-commonjs": "^1.1.6",
     "eslint": "^7.29.0",
     "eslint-config-prettier": "^8.3.0",
     "eslint-plugin-prettier": "^3.4.0",
