@@ -1,7 +1,7 @@
-import { app } from 'app';
-import { sequelize } from 'config/database';
 import request from 'supertest';
-import { User } from 'user/User';
+import { app } from '~/app';
+import { sequelize } from '~/config/database';
+import { User } from '~/user/User';
 
 beforeAll(() => {
   return sequelize.sync();

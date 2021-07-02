@@ -1,5 +1,5 @@
 import express from 'express';
-import { User } from 'user/User';
+import { User } from '~/user/User';
 
 const app = express();
 app.use(express.json());

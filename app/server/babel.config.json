@@ -2,9 +2,10 @@
   "presets": ["@babel/preset-env"],
   "plugins": [
     [
-      "module-resolver",
+      "babel-plugin-root-import",
       {
-        "root": "./src"
+        "rootPathSuffix": "./src",
+        "rootPathPrefix": "~/"
       }
     ]
   ]

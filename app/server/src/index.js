@@ -1,5 +1,5 @@
-import { app } from 'app';
-import { sequelize } from 'config/database';
+import { app } from '~/app';
+import { sequelize } from '~/config/database';
 
 sequelize.sync();
 
