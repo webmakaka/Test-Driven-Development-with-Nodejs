@@ -5,12 +5,13 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
-    "dev": "nodemon --exec babel-node --config-file ./babel.config.json src/index.js",
-    "babel": "babel --config-file ./babel.config.json src/index.js",
+    "dev": "NODE_PATH=./src nodemon --exec babel-core --config-file ./babel.config.json src/index.js",
+    "babel": "babel-node --config-file ./babel.config.json src/index.js",
     "test": "jest --watchAll",
     "lint": "eslint . --fix",
     "build": "yarn clean && babel src --config-file ./babel.config.json -d dist",
-    "prod": "yarn build && babel-node dist/index.js",
+    "prod:prepare": "NODE_PATH=./src yarn build && node --experimental-modules --es-module-specifier-resolution=node dist/index.js",
+    "prod:run": "NODE_PATH=./src--experimental-modules --es-module-specifier-resolution=node dist/index.js",
     "clean": "rimraf dist"
   },
   "keywords": [],
@@ -18,9 +19,10 @@
   "license": "ISC",
   "dependencies": {
     "agent-base": "^6.0.2",
+    "babel-plugin-transform-commonjs-es2015-modules": "^4.0.1",
     "express": "^4.17.1",
     "rimraf": "^3.0.2",
-    "sequelize": "^6.6.4",
+    "sequelize": "^6.6.5",
     "sqlite3": "^5.0.2"
   },
   "devDependencies": {
@@ -29,7 +31,7 @@
     "@babel/node": "^7.14.7",
     "@babel/preset-env": "^7.14.7",
     "babel-plugin-module-resolver": "^4.1.0",
-    "eslint": "^7.29.0",
+    "eslint": "^7.30.0",
     "eslint-config-prettier": "^8.3.0",
     "eslint-plugin-prettier": "^3.4.0",
     "jest": "^27.0.6",

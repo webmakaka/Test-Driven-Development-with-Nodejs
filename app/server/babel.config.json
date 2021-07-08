@@ -1,6 +1,7 @@
 {
   "presets": ["@babel/preset-env"],
   "plugins": [
+    ["transform-commonjs-es2015-modules"],
     [
       "module-resolver",
       {
