@@ -76,5 +76,21 @@ describe('User Registration', () => {
       });
   });
 
+  it('shashes the password in databas', (done) => {
+    request(app)
+      .post('/api/1.0/users')
+      .send({
+        username: 'user1',
+        email: 'user1@example.com',
+        password: 'pass1234',
+      })
+      .then((response) => {
+        User.findAll().then((userList) => {
+          const savedUser = userList[0];
+          expect(savedUser.password).not.toBe('pass1234');
+          done();
+        });
+      });
+  });
   // The End
 });

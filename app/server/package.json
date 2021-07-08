@@ -18,6 +18,7 @@
   "dependencies": {
     "agent-base": "^6.0.2",
     "babel-plugin-transform-commonjs-es2015-modules": "^4.0.1",
+    "bcryptjs": "^2.4.3",
     "express": "^4.17.1",
     "rimraf": "^3.0.2",
     "sequelize": "^6.6.5",
@@ -45,7 +46,7 @@
   },
   "eslintConfig": {
     "parserOptions": {
-      "ecmaVersion": 6
+      "ecmaVersion": 2018
     },
     "extends": [
       "eslint:recommended",

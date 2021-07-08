@@ -53,8 +53,20 @@ http://192.168.0.1:8080
 
 <br/>
 
-    // Solves issue in VSCode
-    $ npm install agent-base
+    $ cd client
+    $ npx http-server -c-1 -p 8080 -P http://localhost:3000
+
+<br/>
+
+http://localhost:8080/
+
+<br/>
+
+<br/>
+
+### 003. Password Hashing
+
+    $ yarn add bcryptjs
 
 <br/><br/>
 
