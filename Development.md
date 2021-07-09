@@ -39,11 +39,11 @@ http://192.168.0.1:8080
 
 <br/>
 
-## 001. First Test Sign Up Request
+### 001. First Test Sign Up Request
 
 <br/>
 
-## 002. Saving User to Database
+### 002. Saving User to Database
 
     $ sudo apt install sqlite3
 
@@ -62,11 +62,13 @@ http://localhost:8080/
 
 <br/>
 
-<br/>
-
 ### 003. Password Hashing
 
     $ yarn add bcryptjs
+
+<br/>
+
+### 004. Refactor
 
 <br/><br/>
 
