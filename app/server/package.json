@@ -4,6 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "start": "yarn dev",
     "dev": "nodemon --exec babel-node --config-file ./babel.config.json src/index.js",
     "test": "jest --watchAll",
     "lint": "eslint . --fix",
