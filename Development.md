@@ -70,6 +70,12 @@ http://localhost:8080/
 
 ### 004. Refactor
 
+<br/>
+
+## 03. Configuration and Environment
+
+    $ yarn add config
+
 <br/><br/>
 
 ---
