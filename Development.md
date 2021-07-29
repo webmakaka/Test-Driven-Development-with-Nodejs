@@ -88,6 +88,12 @@ http://localhost:8080/
 
 ### 002. Validatior Middleware
 
+<br/>
+
+### 003. Express Validator
+
+    $ yarn add express-validator
+
 <br/><br/>
 
 ---
