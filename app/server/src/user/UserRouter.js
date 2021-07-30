@@ -17,7 +17,14 @@ router.post(
     .withMessage('Email cannot be null')
     .bail()
     .isEmail()
-    .withMessage('Email is not valid'),
+    .withMessage('Email is not valid')
+    .bail()
+    .custom(async (email) => {
+      const user = await UserService.findByEmail(email);
+      if (user) {
+        throw new Error('[App] Email is in use');
+      }
+    }),
   check('password')
     .notEmpty()
     .withMessage('Password cannot be null')
@@ -39,7 +46,6 @@ router.post(
         .forEach((error) => (validationErrors[error.param] = error.msg));
       return res.status(400).send({ validationErrors });
     }
-
     await UserService.save(req.body);
     return res.send({ message: 'User created' });
   }

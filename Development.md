@@ -102,6 +102,10 @@ http://localhost:8080/
 
 ### 005. Remaining Validations
 
+<br/>
+
+### 006. Custom Validation Unique Email Validation
+
 <br/><br/>
 
 ---
