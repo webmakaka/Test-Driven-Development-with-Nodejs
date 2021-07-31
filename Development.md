@@ -106,6 +106,12 @@ http://localhost:8080/
 
 ### 006. Custom Validation Unique Email Validation
 
+<br/>
+
+## 05. Internationalization - i18n
+
+    $ yarn add i18next i18next-fs-backend i18next-http-middleware
+
 <br/><br/>
 
 ---

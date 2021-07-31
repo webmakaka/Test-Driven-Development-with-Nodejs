@@ -1,0 +1,11 @@
+{
+  "username_null": "Username не может быть null",
+  "username_size": "Должно быть минимум 4 и максимум 32 символа",
+  "email_null": "Email не может быть null",
+  "email_invalid": "Email задан неверно",
+  "password_null": "Password не может быть null",
+  "password_size": "Password быть не менее 6 символов",
+  "password_pattern": "Password должен состоять как минимум из 1 символа в верхнем регистре, 1 символа в нижнем регистре и 1 цифры",
+  "email_inuse": "Email уже используется",
+  "user_create_success": "User создан"
+}
