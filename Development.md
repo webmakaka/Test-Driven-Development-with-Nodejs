@@ -120,6 +120,13 @@ http://localhost:8080/
 
 ### 001. Account Activation Intro
 
+<br/>
+
+### 002. Activation Email
+
+    $ yarn add nodemailer
+    $ yarn add -D nodemailer-stub
+
 <br/><br/>
 
 ---
