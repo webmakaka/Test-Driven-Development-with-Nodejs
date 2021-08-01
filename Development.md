@@ -112,6 +112,14 @@ http://localhost:8080/
 
     $ yarn add i18next i18next-fs-backend i18next-http-middleware
 
+<br/>
+
+## 06. Account Activation
+
+<br/>
+
+### 001. Account Activation Intro
+
 <br/><br/>
 
 ---

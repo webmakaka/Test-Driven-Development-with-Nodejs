@@ -15,6 +15,13 @@ User.init(
     password: {
       type: DataTypes.STRING,
     },
+    inactive: {
+      type: DataTypes.BOOLEAN,
+      defaultValue: true,
+    },
+    activationToken: {
+      type: DataTypes.STRING,
+    },
   },
   {
     sequelize,

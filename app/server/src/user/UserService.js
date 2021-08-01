@@ -1,11 +1,19 @@
 import * as bcrypt from 'bcryptjs';
+import crypto from 'crypto';
 import { User } from '~/user/User';
 
+const generateToken = (length) => {
+  return crypto.randomBytes(length).toString('hex').substring(0, length);
+};
+
 const save = async (body) => {
-  const hash = await bcrypt.hash(body.password, 10);
+  const { username, email, password } = body;
+  const hash = await bcrypt.hash(password, 10);
   const user = {
-    ...body,
+    username,
+    email,
     password: hash,
+    activationToken: generateToken(16),
   };
   await User.create(user);
 };
