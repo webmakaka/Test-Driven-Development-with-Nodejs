@@ -131,6 +131,16 @@ http://localhost:8080/
 
 ### 003. Email Transport Failures
 
+<br/>
+
+### 004. Refactoring Tests
+
+    $ yarn add -D smtp-server
+    $ yarn add -D jest-watch-typeahead
+
+
+    $ yarn remove nodemailer-stub
+
 <br/><br/>
 
 ---

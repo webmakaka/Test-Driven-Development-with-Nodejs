@@ -1,18 +1,46 @@
-import nodemailerStub from 'nodemailer-stub';
+// import nodemailerStub from 'nodemailer-stub';
+import { SMTPServer } from 'smtp-server';
 import request from 'supertest';
 import { app } from '~/app';
 import { sequelize } from '~/config/database';
-import { EmailService } from '~/email/EmailService';
 import { User } from '~/user/User';
 
-beforeAll(() => {
-  return sequelize.sync();
+let lastMail, server;
+let simulateSmtpFailure = false;
+
+beforeAll(async () => {
+  server = new SMTPServer({
+    authOptional: true,
+    onData(stream, session, callback) {
+      let mailBody;
+      stream.on('data', (data) => {
+        mailBody += data.toString();
+      });
+      stream.on('end', () => {
+        if (simulateSmtpFailure) {
+          const err = new Error('Invalid mailbox');
+          err.responseCode = 533;
+          return callback(err);
+        }
+        lastMail = mailBody;
+        callback();
+      });
+    },
+  });
+
+  await server.listen(8587, 'localhost');
+  await sequelize.sync();
 });
 
 beforeEach(() => {
+  simulateSmtpFailure = false;
   return User.destroy({
     truncate: true,
   });
+});
+
+afterAll(async () => {
+  await server.close;
 });
 
 const validUser = {
@@ -178,39 +206,31 @@ describe('User Registration', () => {
 
   it('sends an Account activation email with activationToken', async () => {
     await postUser();
-
-    const lastMail = nodemailerStub.interactsWithMail.lastMail();
-    expect(lastMail.to[0]).toBe(validUser.email);
-
     const users = await User.findAll();
     const savedUser = users[0];
-    expect(lastMail.content).toContain(savedUser.activationToken);
+
+    console.log('lastMail', lastMail);
+    console.log('savedUser', savedUser);
+
+    expect(lastMail).toContain(validUser.email);
+    expect(lastMail).toContain(savedUser.activationToken);
   });
 
   it('returns 502 Bad Gateway when sending email fails', async () => {
-    const mockSendAccountActivation = jest
-      .spyOn(EmailService, 'sendAccountActivation')
-      .mockRejectedValue({ message: 'Failed to delivery email' });
+    simulateSmtpFailure = true;
     const response = await postUser();
     expect(response.status).toBe(502);
-    mockSendAccountActivation.mockRestore();
   });
 
   it('returns email failure message when sending email fails', async () => {
-    const mockSendAccountActivation = jest
-      .spyOn(EmailService, 'sendAccountActivation')
-      .mockRejectedValue({ message: 'Failed to delivery email' });
+    simulateSmtpFailure = true;
     const response = await postUser();
     expect(response.body.message).toBe(email_failure);
-    mockSendAccountActivation.mockRestore();
   });
 
   it('does not save user to database if activation email fails', async () => {
-    const mockSendAccountActivation = jest
-      .spyOn(EmailService, 'sendAccountActivation')
-      .mockRejectedValue({ message: 'Failed to delivery email' });
-    const response = await postUser();
-    mockSendAccountActivation.mockRestore();
+    simulateSmtpFailure = true;
+    await postUser();
     const users = await User.findAll();
     expect(users.length).toBe(0);
   });
@@ -276,12 +296,9 @@ describe('Internationalization', () => {
   });
 
   it(`returns ${email_failure} message when sending email fails when language is set as russian`, async () => {
-    const mockSendAccountActivation = jest
-      .spyOn(EmailService, 'sendAccountActivation')
-      .mockRejectedValue({ message: 'Failed to delivery email' });
+    simulateSmtpFailure = true;
     const response = await postUser({ ...validUser }, { language: 'ru' });
     expect(response.body.message).toBe(email_failure);
-    mockSendAccountActivation.mockRestore();
   });
 
   // The End
