@@ -127,6 +127,10 @@ http://localhost:8080/
     $ yarn add nodemailer
     $ yarn add -D nodemailer-stub
 
+<br/>
+
+### 003. Email Transport Failures
+
 <br/><br/>
 
 ---

@@ -7,5 +7,6 @@
   "password_size": "Password быть не менее 6 символов",
   "password_pattern": "Password должен состоять как минимум из 1 символа в верхнем регистре, 1 символа в нижнем регистре и 1 цифры",
   "email_inuse": "Email уже используется",
-  "user_create_success": "User создан"
+  "user_create_success": "User создан",
+  "email_failure": "Ошибка в Email"
 }

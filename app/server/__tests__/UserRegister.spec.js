@@ -2,6 +2,7 @@ import nodemailerStub from 'nodemailer-stub';
 import request from 'supertest';
 import { app } from '~/app';
 import { sequelize } from '~/config/database';
+import { EmailService } from '~/email/EmailService';
 import { User } from '~/user/User';
 
 beforeAll(() => {
@@ -41,6 +42,7 @@ describe('User Registration', () => {
     'Password must have at least 1 uppercase, 1 lowercase letter and 1 number';
   const email_inuse = 'Email is in use';
   const user_create_success = 'User created';
+  const email_failure = 'Email Failure';
 
   it('returns 200 OK when signup request is valid', async () => {
     const response = await postUser();
@@ -185,6 +187,34 @@ describe('User Registration', () => {
     expect(lastMail.content).toContain(savedUser.activationToken);
   });
 
+  it('returns 502 Bad Gateway when sending email fails', async () => {
+    const mockSendAccountActivation = jest
+      .spyOn(EmailService, 'sendAccountActivation')
+      .mockRejectedValue({ message: 'Failed to delivery email' });
+    const response = await postUser();
+    expect(response.status).toBe(502);
+    mockSendAccountActivation.mockRestore();
+  });
+
+  it('returns email failure message when sending email fails', async () => {
+    const mockSendAccountActivation = jest
+      .spyOn(EmailService, 'sendAccountActivation')
+      .mockRejectedValue({ message: 'Failed to delivery email' });
+    const response = await postUser();
+    expect(response.body.message).toBe(email_failure);
+    mockSendAccountActivation.mockRestore();
+  });
+
+  it('does not save user to database if activation email fails', async () => {
+    const mockSendAccountActivation = jest
+      .spyOn(EmailService, 'sendAccountActivation')
+      .mockRejectedValue({ message: 'Failed to delivery email' });
+    const response = await postUser();
+    mockSendAccountActivation.mockRestore();
+    const users = await User.findAll();
+    expect(users.length).toBe(0);
+  });
+
   // The End
 });
 
@@ -199,6 +229,7 @@ describe('Internationalization', () => {
     'Password должен состоять как минимум из 1 символа в верхнем регистре, 1 символа в нижнем регистре и 1 цифры';
   const email_inuse = 'Email уже используется';
   const user_create_success = 'User создан';
+  const email_failure = 'Ошибка в Email';
 
   it.each`
     field         | value                 | expectedMessage
@@ -242,6 +273,15 @@ describe('Internationalization', () => {
   it(`returns success message of ${user_create_success} when signup request is valid when language is set as russian`, async () => {
     const response = await postUser({ ...validUser }, { language: 'ru' });
     expect(response.body.message).toBe(user_create_success);
+  });
+
+  it(`returns ${email_failure} message when sending email fails when language is set as russian`, async () => {
+    const mockSendAccountActivation = jest
+      .spyOn(EmailService, 'sendAccountActivation')
+      .mockRejectedValue({ message: 'Failed to delivery email' });
+    const response = await postUser({ ...validUser }, { language: 'ru' });
+    expect(response.body.message).toBe(email_failure);
+    mockSendAccountActivation.mockRestore();
   });
 
   // The End
