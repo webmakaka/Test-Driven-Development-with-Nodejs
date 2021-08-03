@@ -138,8 +138,11 @@ http://localhost:8080/
     $ yarn add -D smtp-server
     $ yarn add -D jest-watch-typeahead
 
-
     $ yarn remove nodemailer-stub
+
+<br/>
+
+### 005. Activating Account
 
 <br/><br/>
 

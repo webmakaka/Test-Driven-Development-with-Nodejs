@@ -3,6 +3,7 @@ import crypto from 'crypto';
 import { sequelize } from '~/config/database';
 import { EmailException } from '~/email/EmailException';
 import { EmailService } from '~/email/EmailService';
+import { InvalidTokenException } from '~/user/InvalidTokenException';
 import { User } from '~/user/User';
 
 const generateToken = (length) => {
@@ -33,7 +34,20 @@ const findByEmail = async (email) => {
   return await User.findOne({ where: { email: email } });
 };
 
+const activate = async (token) => {
+  const user = await User.findOne({ where: { activationToken: token } });
+
+  if (!user) {
+    throw new InvalidTokenException();
+  }
+
+  user.inactive = false;
+  user.activationToken = null;
+  await user.save();
+};
+
 export const UserService = {
   save,
   findByEmail,
+  activate,
 };

@@ -8,5 +8,7 @@
   "password_pattern": "Password должен состоять как минимум из 1 символа в верхнем регистре, 1 символа в нижнем регистре и 1 цифры",
   "email_inuse": "Email уже используется",
   "user_create_success": "User создан",
-  "email_failure": "Ошибка в Email"
+  "email_failure": "Ошибка в Email",
+  "account_activation_failure": "Эта учетная запись либо активна, либо токен недействителен",
+  "account_activation_success": "Аккаунт активирован"
 }
