@@ -1,4 +1,3 @@
-// import nodemailerStub from 'nodemailer-stub';
 import { SMTPServer } from 'smtp-server';
 import request from 'supertest';
 import { app } from '~/app';

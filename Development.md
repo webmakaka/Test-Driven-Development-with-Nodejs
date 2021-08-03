@@ -144,6 +144,25 @@ http://localhost:8080/
 
 ### 005. Activating Account
 
+<br/>
+
+### 006. Testing on Web Client
+
+https://ethereal.email/
+
+<br/>
+
+    $ cd client
+    $ npx http-server -c-1 -p 8080 -P http://localhost:3000
+
+<br/>
+
+![Application](/img/pic-m06-p01.png?raw=true)
+
+<br/>
+
+![Application](/img/pic-m06-p02.png?raw=true)
+
 <br/><br/>
 
 ---
