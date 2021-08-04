@@ -1,6 +1,5 @@
 export const errorHandler = (err, req, res, next) => {
   const { status, message, errors } = err;
-
   let validationErrors;
 
   if (errors) {
@@ -9,5 +8,10 @@ export const errorHandler = (err, req, res, next) => {
       (error) => (validationErrors[error.param] = req.t(error.msg))
     );
   }
-  return res.status(status).send({ message: req.t(message), validationErrors });
+  return res.status(status).send({
+    path: req.originalUrl,
+    timestamp: new Date().getTime(),
+    message: req.t(message),
+    validationErrors,
+  });
 };

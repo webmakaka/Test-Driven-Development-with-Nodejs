@@ -171,6 +171,10 @@ https://ethereal.email/
 
 ### 001. Error Handler
 
+<br/>
+
+### 002. Error Body
+
 <br/><br/>
 
 ---

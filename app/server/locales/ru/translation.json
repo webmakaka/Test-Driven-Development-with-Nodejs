@@ -10,5 +10,6 @@
   "user_create_success": "User создан",
   "email_failure": "Ошибка в Email",
   "account_activation_failure": "Эта учетная запись либо активна, либо токен недействителен",
-  "account_activation_success": "Аккаунт активирован"
+  "account_activation_success": "Аккаунт активирован",
+  "validation_failure": "Ошибка валидации"
 }
