@@ -2,6 +2,7 @@ import express from 'express';
 import i18next from 'i18next';
 import Backend from 'i18next-fs-backend';
 import middleware from 'i18next-http-middleware';
+import { errorHandler } from '~/error/ErrorHandler';
 import { router as UserRouter } from '~/user/UserRouter';
 
 i18next
@@ -22,8 +23,9 @@ i18next
 
 const app = express();
 
-app.use(middleware.handle(i18next)); 
+app.use(middleware.handle(i18next));
 app.use(express.json());
 app.use(UserRouter);
+app.use(errorHandler);
 
 export { app };

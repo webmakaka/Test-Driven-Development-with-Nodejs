@@ -163,6 +163,14 @@ https://ethereal.email/
 
 ![Application](/img/pic-m06-p02.png?raw=true)
 
+<br/>
+
+### 007. Error Handler
+
+<br/>
+
+### 001. Error Handler
+
 <br/><br/>
 
 ---
